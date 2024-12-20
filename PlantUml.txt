@@ -1,0 +1,136 @@
+@startuml
+class Character implements Friendable, Locatable {
+-name: String
+-age: int
+-place: Place
+-description: String
+-isKnown: boolean
++Character(name: String, age: int, place: Place, description: String, isKnown: boolean)
++getIsKnown(): boolean
++setIsKnown(boolean isKnown): void
++getName(): String
++setName(String name): void
++getAge(): int
++setAge(int age): void
++getPlace(): Place
++setPlace(Place place): void
++getDescription(): String 
++setDescription(String: description): void
+}
+interface Flyable {
++fly(newPlace: Place): void
++flyNearWith(item: Locatable): void
++circleArround(rounds: int): void
++getFlightSpeed(): int
++setFlightSpeed(flightSpeed: int): void
++getFlightHeight(): int
++setFlightHeight(flightHeight: int): void
+}
+interface Friendable {
++makeAFriend(character: Character): void 
++removeAFriend(character: Character): void 
+}
+class InvalidAlreadyFriendException extends RuntimeException {
++getMessage(): String
+}
+class InvalidNotFriendException extends RuntimeException{
++getMessage(): String
+}
+class InvalidTubePlaceException extends RuntimeException{
++getMessage(): String
+}
+class Karlson extends Character implements Flyable {
+-flightSpeed: int
+-flightHeight: int 
+-home: Place
+-isKnown: boolean
++Karlson(name: String, age: int, place: Place, description: String, isKnown: boolean, flightSpeed: int, flightHeight: int, home: Place)
++getHome(): Place
++setHome(home: Place): void
++getFlightSpeed(): int
++setFlightSpeed(flightSpeed: int): void
++getFlightHeight(): int
++setFlightHeight(flightHeight: int): void
++makeSound(sound: Sound): void
++leaveOnPlace(): void
++lookAtPerson(character: Character, description: String): void
++goBack(): void
++makeAFriend(character: Character): void
++removeAFriend(character: Character): void
++fly(newPlace: Place): void
++fly(place: Place, newPlace: Place.Tube): void
++flyNearWith(item: Locatable): void
++circleArround(rounds: int): void
++getHigher (): void
++getFaster (): void 
+}
+class Kid extends Character{
++Kid(name: String, age: int, place: Place, description: String, isKnown: boolean)
++makeAFriend(character: Character): void
++removeAFriend(character: Character): void
++showInfoAboutFriendshipWith(character: Character): void
++hashCode(): int
++equals(obj: Object): boolean
++toString(): String
++breathe(type: TypeOfBreathe): void
++getName(): String
++setName(name: String): void
++getAge(): int
++setAge(age: int): void
++getPlace(): Place
++setPlace(place: Place): void
++getDescription(): String
++setDescription(description: String): void
++hear(Sound sound): void
+}
+interface Locatable {
++getName(): String
++getPlace(): Place 
+}
+class Main {
++main(args: String[]): void
+}
+class Place implements Locatable {
+-name: String
++getPlace(): Place
+}
+class Tube {
++getName(): String 
++createTube(): Tube
+}
+class Sound {
+-name: String
+-type: TypeOfVolume
+-ValueOfVolume: int
++Sound(name: String, type: TypeOfVolume) 
++getName(): String 
++setName(name: String): void 
++setType(type: TypeOfVolume): void 
++getType(): TypeOfVolume 
++makeLouder(howTimes: int): void 
+-connectTypeWithValue(): void 
+-connectValueWithType(): void
+}
+enum TypeOfBreathe {
+HEAVY("тяжело")
+LIGHT("легко")
+-name: String 
+-TypeOfBreathe (name: String)
++getName(): String
+}
+enum TypeOfVolume {
+LOUD("громкое"),
+QUITE("тихое"),
+FAINT("слабое");
+-name: String
+-TypeOfVolume(name: String)
++getName(): String
+}
+Sound o-- Karlson
+Sound o-- Kid
+TypeOfVolume *-- Sound
+TypeOfBreathe *-- Kid
+Tube <.. Place
+Place o-- Kid
+Place o-- Karlson
+@enduml
